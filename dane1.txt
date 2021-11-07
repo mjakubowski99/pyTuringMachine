@@ -1,9 +1,9 @@
-Opis: "negacja"
+Opis: "Sprawdzanie czy taka sama ilość zer i jedynek"
 stany: s,0,1,p,a,n
 alfabet: 0,1,#,_
 dlugosc slowa: 6
-slowo: 0101010111110000
-stan koncowy: a
+slowo: 01010101111100001
+stan koncowy: qa,qn
 stan poczatkowy: s
 instrukcja:
 s:

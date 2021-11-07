@@ -12,9 +12,9 @@ def printMachine(word, index, state):
 
 class TuringMachine:
 
-    def __init__(self, data):
+    def __init__(self, data: FileDataParser):
         self.data = data
-        self.data.word =  list(self.data.word)
+        self.data.word = list(self.data.word)
         self.index = 1
 
     def step(self, state):
@@ -47,22 +47,28 @@ class TuringMachine:
             self.index = len(self.data.word)-1
 
         printMachine(self.data.word, self.index, state)
-        
-        if( state == self.data.endState ):
-            print("Stan końcowy osiągnięty. Procedura zakończona")
-            exit(0)
 
         return state 
 
     def simulate(self):
         state  = self.data.beginState
+        loopCounter = 0
         print("Begin: ")
         printMachine(self.data.word, self.index, state)
         
         input()
         while True:
             state = self.step(state)
+            if( state in self.data.endState ):
+                print("Stan końcowy osiągnięty. Procedura zakończona")
+                exit(0)
+            loopCounter+=1
+
+            if( loopCounter > 1000 * len(self.data.word) ):
+                print("Maszyna nie może osiągnąć stanu końcowego")
+                break 
             input()
+
 
 
 def main():

@@ -1,0 +1,16 @@
+Opis: "Sprawdzenie czy długość słowa podzielna przez 3"
+stany: 0,1,2,a
+alfabet: 1,_
+dlugosc slowa: 8
+slowo: 1111_111
+stan koncowy: a
+stan poczatkowy: 0
+instrukcja:
+0:
+    1;1,_,r;
+1:
+    1;1,1,r;
+    _;2,1,l;
+2:
+    1;2,1,l;
+    _;a,_,r;
