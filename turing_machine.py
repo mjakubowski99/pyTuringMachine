@@ -85,7 +85,7 @@ class TuringMachine:
             
 
 def main():
-    file = open("dane3.txt")
+    file = open("dane1.txt")
     try:
         data = FileDataParser(file)
         machine = TuringMachine(data)

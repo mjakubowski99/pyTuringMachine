@@ -8,6 +8,8 @@ class FileDataParser():
 
     def baseParse(self, name):
         line = self.file.readline()
+
+        #if no data from file found print bad file format
         if( len(line) == 0 ):
             raise ValueError("Bad file format") 
 
@@ -16,21 +18,25 @@ class FileDataParser():
         if( len(data) < 2 ):
             raise ValueError("Data is not valid")
 
+        #if header name is not valid raise error message
         if( data[0] != name ):
             raise ValueError("Not valid header") 
 
         return data 
 
+    #convert parsed data to array
     def parseToArray(self, name):
         data = self.baseParse(name)
 
         return data[1][1:-1].split(',')
-        
+    
+    #convert parsed data to str
     def parseToStr(self, name):
         data = self.baseParse(name)
         
         return data[1][1:-1]
 
+    #parse instructions
     def parseInstructions(self):
         self.baseParse("instrukcja")
 
@@ -77,12 +83,20 @@ class FileDataParser():
         self.alphabeth = self.parseToArray("alfabet")
         self.length = int( self.parseToStr("dlugosc slowa") )
         self.word = "_"+self.parseToStr("slowo")+"_"
-        self.endState = self.parseToStr("stan koncowy")
+        self.endState = self.parseToArray("stan koncowy")
         self.beginState = self.parseToStr("stan poczatkowy")
         self.parseInstructions()
         self.validate()
 
+    #validate data to make sure that given state, symbols, and moves are valid
     def validate(self):
+        for state in self.endState:
+            if state not in self.states:
+                raise ValueError("End state definiton is not valid")
+
+        if self.beginState not in self.states:
+            raise ValueError("Begin state is invalid")
+
         for char in self.word:
             if char not in self.alphabeth:
                 raise ValueError("In word is char which is not in alphabeth")
