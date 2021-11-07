@@ -4,7 +4,16 @@ class FileDataParser():
 
     def __init__(self, file):
         self.file = file
-        self.parse()
+        self.description = self.file.readline()[:-1]
+        self.states = self.parseToArray("stany")
+        self.alphabeth = self.parseToArray("alfabet")
+        self.length = int( self.parseToStr("dlugosc slowa") )
+        self.word = "_"+self.parseToStr("slowo")+"_"
+        self.endState = self.parseToArray("stan koncowy")
+        self.beginState = self.parseToStr("stan poczatkowy")
+        self.parseInstructions()
+        self.validate()
+
 
     def baseParse(self, name):
         line = self.file.readline()
@@ -76,17 +85,6 @@ class FileDataParser():
                     'symbol': data[1],
                     'move': data[2]
                 }
-
-    def parse(self):
-        self.description = self.file.readline()[:-1]
-        self.states = self.parseToArray("stany")
-        self.alphabeth = self.parseToArray("alfabet")
-        self.length = int( self.parseToStr("dlugosc slowa") )
-        self.word = "_"+self.parseToStr("slowo")+"_"
-        self.endState = self.parseToArray("stan koncowy")
-        self.beginState = self.parseToStr("stan poczatkowy")
-        self.parseInstructions()
-        self.validate()
 
     #validate data to make sure that given state, symbols, and moves are valid
     def validate(self):

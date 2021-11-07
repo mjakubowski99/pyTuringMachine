@@ -1,4 +1,4 @@
-Opis: "Sprawdzanie czy ciąg posiada taka sama ilość zer i jedynek"
-Slowo poczatkowe: _010101011111000010_
-Slowo koncowe: _##################_
+Opis: "Dodawanie liczb unarnych"
+Slowo poczatkowe: _1111_111_
+Slowo koncowe: __1111111_
 Osiagniety stan: qa
