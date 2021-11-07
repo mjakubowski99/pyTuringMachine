@@ -85,11 +85,13 @@ class TuringMachine:
             
 
 def main():
-    file = open("dane1.txt")
-    data = FileDataParser(file)
-
-    machine = TuringMachine(data)
-    machine.simulate()
+    file = open("dane3.txt")
+    try:
+        data = FileDataParser(file)
+        machine = TuringMachine(data)
+        machine.simulate()
+    except ValueError as e:
+        print( str(e) )
 
 
 main()

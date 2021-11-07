@@ -44,15 +44,27 @@ class FileDataParser():
 
             #it's letter
             if( line[0] != ' '):
-                self.instructions[line.split(':')[0]] = {}
-                last_index = line.split(':')[0]
+                data = line.split(':')
+                if(len(data)<1):
+                    raise ValueError("Not valid state definition")
+                
+                self.instructions[data[0]] = {}
+                last_index = data[0]
             else:
                 filtered = line.replace(' ', '')
                 if( last_index == False ):
                     raise ValueError("Parsing error")
 
-                key = filtered.split(';')[0]
-                data = filtered.split(';')[1].split(',')
+                data = filtered.split(';')
+                if(len(data)<2):
+                    raise ValueError("Not valid instructions")
+
+                key = data[0]
+                data = data[1].split(',')
+
+                if( len(data) < 3 ):
+                    raise ValueError("Not valid instructions")
+
                 self.instructions[last_index][key] = {
                     'state': data[0],
                     'symbol': data[1],
@@ -68,7 +80,34 @@ class FileDataParser():
         self.endState = self.parseToStr("stan koncowy")
         self.beginState = self.parseToStr("stan poczatkowy")
         self.parseInstructions()
+        self.validate()
 
+    def validate(self):
+        for char in self.word:
+            if char not in self.alphabeth:
+                raise ValueError("In word is char which is not in alphabeth")
+
+        for key in self.instructions.keys():
+            if key not in self.states:
+                raise ValueError("State definiton is not valid")
+
+        for (key,data) in self.instructions.items():
+            if key not in self.states:
+                raise ValueError("State definiton is not valid")
+
+            for (key,instruction) in data.items():
+                if key not in self.alphabeth:
+                    raise ValueError("Instruction has invalid alphabeth symbol")
+
+                if instruction["state"] not in self.states:
+                    raise ValueError("State definiton is not valid")
+
+                if instruction["symbol"] not in self.alphabeth:
+                    raise ValueError("State definiton is not valid")
+
+                if instruction["move"] not in ['r', 's', 'l']:
+                    raise ValueError("Invalid move definiton")
+        
     def __str__(self):
         return """
             {}
