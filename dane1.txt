@@ -2,7 +2,7 @@ Opis: "Sprawdzanie czy ciąg posiada taka sama ilość zer i jedynek"
 stany: qs,q0,q1,qp,qa,qn
 alfabet: 0,1,#,_
 dlugosc slowa: 17
-slowo: 01010101111100001
+slowo: 010101011111000010
 stan koncowy: qa,qn
 stan poczatkowy: qs
 instrukcja:

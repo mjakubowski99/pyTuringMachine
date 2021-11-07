@@ -66,6 +66,8 @@ class TuringMachine:
         loopCounter = 0
         print("Begin: ")
         printMachine(self.data.word, self.index, state)
+
+        lenWord = len(self.data.word)
         
         while True:
             state = self.step(state)
@@ -75,7 +77,7 @@ class TuringMachine:
                 exit(0)
             loopCounter+=1
 
-            if( loopCounter > 1000 * len(self.data.word) ):
+            if( loopCounter > 1000 * lenWord ):
                 print("W stanie {} jest prawdopodobnie błąd".format(state) )
                 print("Maszyna nie może osiągnąć stanu końcowego")
                 genReport("Błąd! Maszyna się zapętliła!", self.beginWord, "".join(self.data.word), state)
@@ -83,7 +85,7 @@ class TuringMachine:
             
 
 def main():
-    file = open("dane2.txt")
+    file = open("dane1.txt")
     data = FileDataParser(file)
 
     machine = TuringMachine(data)

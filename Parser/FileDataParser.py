@@ -6,7 +6,8 @@ class FileDataParser():
         self.file = file
         self.parse()
 
-    def baseParse(self, line, name):
+    def baseParse(self, name):
+        line = self.file.readline()
         if( len(line) == 0 ):
             raise ValueError("Bad file format") 
 
@@ -20,18 +21,18 @@ class FileDataParser():
 
         return data 
 
-    def parseToArray(self, line, name):
-        data = self.baseParse(line, name)
+    def parseToArray(self, name):
+        data = self.baseParse(name)
 
         return data[1][1:-1].split(',')
         
-    def parseToStr(self, line, name):
-        data = self.baseParse(line, name)
+    def parseToStr(self, name):
+        data = self.baseParse(name)
         
         return data[1][1:-1]
 
-    def parseInstructions(self, line):
-        self.baseParse(line, "instrukcja")
+    def parseInstructions(self):
+        self.baseParse("instrukcja")
 
         self.instructions = {}
         last_index = False
@@ -58,19 +59,15 @@ class FileDataParser():
                     'move': data[2]
                 }
 
-
-
-
-
     def parse(self):
         self.description = self.file.readline()[:-1]
-        self.states = self.parseToArray(self.file.readline(), "stany")
-        self.alphabeth = self.parseToArray(self.file.readline(), "alfabet")
-        self.length = int( self.parseToStr(self.file.readline(), "dlugosc slowa") )
-        self.word = "_"+self.parseToStr(self.file.readline(), "slowo")+"_"
-        self.endState = self.parseToStr(self.file.readline(), "stan koncowy")
-        self.beginState = self.parseToStr(self.file.readline(), "stan poczatkowy")
-        self.parseInstructions(self.file.readline())
+        self.states = self.parseToArray("stany")
+        self.alphabeth = self.parseToArray("alfabet")
+        self.length = int( self.parseToStr("dlugosc slowa") )
+        self.word = "_"+self.parseToStr("slowo")+"_"
+        self.endState = self.parseToStr("stan koncowy")
+        self.beginState = self.parseToStr("stan poczatkowy")
+        self.parseInstructions()
 
     def __str__(self):
         return """

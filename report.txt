@@ -1,4 +1,4 @@
-B³¹d! Maszyna siê zapêtli³a!
-Slowo poczatkowe: _010101_
-Slowo koncowe: _010101_
-Osiagniety stan: s
+Opis: "Sprawdzanie czy ciÄ…g posiada taka sama iloÅ›Ä‡ zer i jedynek"
+Slowo poczatkowe: _010101011111000010_
+Slowo koncowe: _##################_
+Osiagniety stan: qa
