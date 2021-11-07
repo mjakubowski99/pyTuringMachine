@@ -10,10 +10,20 @@ def printMachine(word, index, state):
     print(fillSpaces[:-1]+"| stan: "+state)
     print("___"+word+"___")
 
+def genReport(description, startWord, endWord, endState):
+    file = open("report.txt", "w")
+    file.write("""{}
+Slowo poczatkowe: {}
+Slowo koncowe: {}
+Osiagniety stan: {}
+""".format(description, startWord, endWord, endState) )
+
+
 class TuringMachine:
 
     def __init__(self, data: FileDataParser):
         self.data = data
+        self.beginWord = self.data.word
         self.data.word = list(self.data.word)
         self.index = 1
 
@@ -23,18 +33,19 @@ class TuringMachine:
             instructions = self.data.instructions[state][symbol]
         else:
             print("Procedura zakonczona brak zdefiniowanych operacji")
+            genReport("Błąd! Brak zdefiniowanych operacji!", self.beginWord, "".join(self.data.word), state)
             exit()
         
 
-        state = instructions[0]
+        state = instructions['state']
 
-        self.data.word[self.index] = instructions[2]
+        self.data.word[self.index] = instructions['symbol']
 
-        if( instructions[4] == "r" ):
+        if( instructions['move'] == "r" ):
             self.index += 1
-        elif( instructions[4] == "l" ):
+        elif( instructions['move'] == "l" ):
             self.index -= 1
-        elif( instructions[4] == "s" ):
+        elif( instructions['move'] == "s" ):
             pass
         else:
             raise ValueError("Bad instruction")
@@ -56,31 +67,27 @@ class TuringMachine:
         print("Begin: ")
         printMachine(self.data.word, self.index, state)
         
-        input()
         while True:
             state = self.step(state)
             if( state in self.data.endState ):
+                genReport(self.data.description, self.beginWord, "".join(self.data.word), state)
                 print("Stan końcowy osiągnięty. Procedura zakończona")
                 exit(0)
             loopCounter+=1
 
             if( loopCounter > 1000 * len(self.data.word) ):
+                print("W stanie {} jest prawdopodobnie błąd".format(state) )
                 print("Maszyna nie może osiągnąć stanu końcowego")
+                genReport("Błąd! Maszyna się zapętliła!", self.beginWord, "".join(self.data.word), state)
                 break 
-            input()
-
-
+            
 
 def main():
-    file = open("dane1.txt")
+    file = open("dane2.txt")
     data = FileDataParser(file)
 
     machine = TuringMachine(data)
     machine.simulate()
-
-    
-
- 
 
 
 main()

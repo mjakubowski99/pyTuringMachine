@@ -1,16 +1,16 @@
-Opis: "Sprawdzenie czy długość słowa podzielna przez 3"
-stany: 0,1,2,a
+Opis: "Dodawanie liczb unarnych"
+stany: q0,q1,q2,qa
 alfabet: 1,_
 dlugosc slowa: 8
 slowo: 1111_111
-stan koncowy: a
-stan poczatkowy: 0
+stan koncowy: qa
+stan poczatkowy: q0
 instrukcja:
-0:
-    1;1,_,r;
-1:
-    1;1,1,r;
-    _;2,1,l;
-2:
-    1;2,1,l;
-    _;a,_,r;
+q0:
+    1;q1,_,r;
+q1:
+    1;q1,1,r;
+    _;q2,1,l;
+q2:
+    1;q2,1,l;
+    _;qa,_,r;

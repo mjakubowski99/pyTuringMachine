@@ -1,28 +1,28 @@
-Opis: "Sprawdzanie czy taka sama ilość zer i jedynek"
-stany: s,0,1,p,a,n
+Opis: "Sprawdzanie czy ciąg posiada taka sama ilość zer i jedynek"
+stany: qs,q0,q1,qp,qa,qn
 alfabet: 0,1,#,_
-dlugosc slowa: 6
+dlugosc slowa: 17
 slowo: 01010101111100001
 stan koncowy: qa,qn
-stan poczatkowy: s
+stan poczatkowy: qs
 instrukcja:
-s:
-    #;s,#,r;
-    0;1,#,r;
-    1;0,#,r;
-    _;a,_,s;
-0:
-    0;p,#,l;
-    1;0,1,r;
-    #;0,#,r;
-    _;n,_,s;
-1:
-    0;1,0,r;
-    1;p,#,l;
-    #;1,#,r;
-    _;n,_,s;
-p:
-    0;p,0,l;
-    1;p,1,l;
-    #;p,#,l;
-    _;s,_,r;
+qs:
+    #;qs,#,r;
+    0;q1,#,r;
+    1;q0,#,r;
+    _;qa,_,s;
+q0:
+    0;qp,#,l;
+    1;q0,1,r;
+    #;q0,#,r;
+    _;qn,_,s;
+q1:
+    0;q1,0,r;
+    1;qp,#,l;
+    #;q1,#,r;
+    _;qn,_,s;
+qp:
+    0;qp,0,l;
+    1;qp,1,l;
+    #;qp,#,l;
+    _;qs,_,r;

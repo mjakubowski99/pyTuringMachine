@@ -43,15 +43,20 @@ class FileDataParser():
 
             #it's letter
             if( line[0] != ' '):
-                self.instructions[line[0]] = {}
-                last_index = line[0]
+                self.instructions[line.split(':')[0]] = {}
+                last_index = line.split(':')[0]
             else:
                 filtered = line.replace(' ', '')
                 if( last_index == False ):
                     raise ValueError("Parsing error")
 
-                key = filtered[0]
-                self.instructions[last_index][key] = filtered[2:-1]
+                key = filtered.split(';')[0]
+                data = filtered.split(';')[1].split(',')
+                self.instructions[last_index][key] = {
+                    'state': data[0],
+                    'symbol': data[1],
+                    'move': data[2]
+                }
 
 
 
